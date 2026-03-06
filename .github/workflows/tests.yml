@@ -1,0 +1,37 @@
+name: Medical AI Triage - CI Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up 'uv'
+      uses: astral-sh/setup-uv@v3
+      with:
+        enable-cache: true
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install Dependencies
+      run: uv sync --dev
+
+    - name: Run Pytest Suite
+      env:
+        # We only need LLM keys for the Pytest Judge to evaluate the agent
+        # LiveKit keys are not required for isolated tests
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+        MODEL_NAME_LLM: ${{ secrets.MODEL_NAME_LLM }}
+      run: uv run pytest -v
