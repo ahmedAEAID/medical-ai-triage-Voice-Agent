@@ -60,7 +60,7 @@ async def test_full_patient_intake_integration(setup_test_llm):
             result4.expect.next_event().is_function_call(name="save_symptoms")
             result4.expect.skip_next()
 
-            await asyncio.sleep(1.)
+            await asyncio.sleep(2.0)
             # result4.expect.contains_agent_handoff(new_agent_type=ReceptionistAgent)
 
             # Turn 5: Proactive Summary and asking for confirmation to end call
