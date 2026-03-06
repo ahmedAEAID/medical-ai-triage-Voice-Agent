@@ -44,7 +44,7 @@ async def test_full_system_e2e_flow(setup_test_llm):
             await asyncio.sleep(2.0)
             
             # Turn 5: Trigger Proactive Summary and Handoff
-            res5 = await session.run(user_input="That's all the info. Thank you.")
+            res5 = await session.run(user_input="That's all the info.")
 
             # 1. Verify the receptionist summarizes the data
             await res5.expect.next_event().is_message(role="assistant").judge(
