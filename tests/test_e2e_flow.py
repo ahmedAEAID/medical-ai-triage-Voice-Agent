@@ -60,7 +60,6 @@ async def test_full_system_e2e_flow(setup_test_llm):
             )
             res5.expect.no_more_events()
             
-            # 💡 التعديل 2: حذفنا أسطر الحقن اليدوي لأن الـ AgentSession قام بها بالفعل!
 
             # Turn 6: Interact with Ortho Specialist
             res6 = await session.run(user_input="I can't lift my arm above my head at all.")
