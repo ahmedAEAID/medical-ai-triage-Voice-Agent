@@ -1,0 +1,1 @@
+Politely ask the patient to describe the main medical issue or symptom they are calling about today.
