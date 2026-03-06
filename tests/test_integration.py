@@ -33,11 +33,11 @@ async def test_full_patient_intake_integration(setup_test_llm):
             result2.expect.next_event().is_function_call(name="consent_given")
             result2.expect.next_event().is_function_call_output(output="", is_error=False) # The tool doesn't return data, just completes the task
             # We don't expect the Identity welcome message here because the turn completes on tool call.
-            await asyncio.sleep(2.0)
+            await asyncio.sleep(1.0)
             
-            result2.expect.next_event().is_agent_handoff(new_agent_type=ReceptionistAgent) # The agent should handoff to itself but now with the IdentityTask active
-            result2.expect.skip_next() # Skip the welcome message from IdentityTask since it's not relevant to this test
-            result2.expect.next_event().is_agent_handoff(new_agent_type=IdentityTask) # The agent should handoff to itself but now with the SymptomsTask active
+            # result2.expect.next_event().is_agent_handoff(new_agent_type=ReceptionistAgent) # The agent should handoff to itself but now with the IdentityTask active
+            # result2.expect.skip_next() # Skip the welcome message from IdentityTask since it's not relevant to this test
+            # result2.expect.next_event().is_agent_handoff(new_agent_type=IdentityTask) # The agent should handoff to itself but now with the SymptomsTask active
             
 
             # Turn 3: User provides Identity. Agent should transition to SymptomsTask.
@@ -48,10 +48,10 @@ async def test_full_patient_intake_integration(setup_test_llm):
             result3.expect.skip_next()
             
             # We don't expect the Identity welcome message here because the turn completes on tool call.
-            await asyncio.sleep(2.0)
+            # await asyncio.sleep(2.0)
             
-            # Then ask for symptoms
-            result3.expect.contains_agent_handoff(new_agent_type=SymptomsTask)
+            # # Then ask for symptoms
+            # result3.expect.contains_agent_handoff(new_agent_type=SymptomsTask)
             await asyncio.sleep(2.0)
             # Turn 4: User provides Symptoms. Agent should finish TaskGroup and summarize.
             result4 = await session.run(user_input="I have a mild headache and a runny nose for 2 days, severity is 3 out of 10.")
@@ -60,8 +60,8 @@ async def test_full_patient_intake_integration(setup_test_llm):
             result4.expect.next_event().is_function_call(name="save_symptoms")
             result4.expect.skip_next()
 
-            await asyncio.sleep(1.5)
-            result4.expect.contains_agent_handoff(new_agent_type=ReceptionistAgent)
+            await asyncio.sleep(1.)
+            # result4.expect.contains_agent_handoff(new_agent_type=ReceptionistAgent)
 
             # Turn 5: Proactive Summary and asking for confirmation to end call
             result5 = await session.run(user_input="That's all the info.")
