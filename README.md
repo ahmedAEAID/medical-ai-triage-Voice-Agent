@@ -111,4 +111,3 @@ uv run pytest -v
 ### 📝 Conclusion
 
 This project demonstrates the ability to build sophisticated, safe, and testable AI voice systems. By leveraging **Multi-Agent Handoffs** and **TaskGroups**, it solves the "monolithic prompt" problem, creating a scalable solution for healthcare automation.
-```
