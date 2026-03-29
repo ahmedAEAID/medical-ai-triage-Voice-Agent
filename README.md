@@ -58,7 +58,6 @@ When a **Handoff** occurs, the new agent is injected with dynamic patient contex
 ├── 📁 tests/           # Behavioral & Integration test suite
 ├── 📁 utils/           # Shared helper functions (Dynamic prompt loading)
 └── 📁 custom_plugin/    # Proprietary TTS integration (XTTS)
-
 ```
 
 ---
@@ -87,26 +86,24 @@ Testing is a core component of this project to ensure production readiness.
 
 ## ⚙️ Setup & Installation
 
-1. **Environment Variables**: Create a `.env.local` file with your API keys. **Never commit this file**.
-2. **Install Dependencies**:
+1. **Environment Variables**: Copy the provided example environment file and fill in your actual API keys. **Never commit the `.env.local` file**.
+```bash
+cp .env.example .env.local
+```
 
+2. **Install Dependencies**:
 ```bash
 uv sync
-
 ```
 
 3. **Run the Agent**:
-
 ```bash
 uv run main.py dev
-
 ```
 
 4. **Run Tests**:
-
 ```bash
 uv run pytest -v
-
 ```
 
 ---
@@ -114,3 +111,4 @@ uv run pytest -v
 ### 📝 Conclusion
 
 This project demonstrates the ability to build sophisticated, safe, and testable AI voice systems. By leveraging **Multi-Agent Handoffs** and **TaskGroups**, it solves the "monolithic prompt" problem, creating a scalable solution for healthcare automation.
+```
